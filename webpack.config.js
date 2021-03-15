@@ -21,8 +21,13 @@ module.exports = {
           loader: 'babel-loader',
         },
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
+  devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
       template: 'template.html',

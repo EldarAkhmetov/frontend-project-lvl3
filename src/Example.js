@@ -7,6 +7,8 @@ export default class Example {
 
   init() {
     this.element.textContent = 'hello, world!';
+    this.element.classList.add('alert');
+    this.element.classList.add('alert-primary');
     console.log('ehu!');
   }
 }
