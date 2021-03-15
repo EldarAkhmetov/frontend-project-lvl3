@@ -9,7 +9,7 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: './src',
     port: 8080,
   },
   module: {
