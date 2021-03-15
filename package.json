@@ -1,0 +1,22 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "RSS Reader",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EldarAkhmetov/frontend-project-lvl3.git"
+  },
+  "keywords": [
+    "rss"
+  ],
+  "author": "Eldar Akhmetov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EldarAkhmetov/frontend-project-lvl3/issues"
+  },
+  "homepage": "https://github.com/EldarAkhmetov/frontend-project-lvl3#readme"
+}
