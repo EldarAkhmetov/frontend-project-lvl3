@@ -1,6 +1,6 @@
 // @ts-check
 
-export default class Example {
+export default class Main {
   constructor(element) {
     this.element = element;
   }
