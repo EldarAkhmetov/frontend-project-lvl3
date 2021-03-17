@@ -1,11 +1,13 @@
 // @ts-check
+import loadRss from './rss-loader';
+import parseRss from './rss-parser';
 
 export default class Main {
   constructor(element) {
     this.element = element;
   }
 
-  init() {
+  render() {
     const main = document.createElement('main');
     main.classList.add('flex-grow-1');
     main.innerHTML = `
@@ -38,6 +40,36 @@ export default class Main {
       </section>
     `;
     this.element.parentNode.replaceChild(main, this.element);
+    this.element = main;
+  }
+
+  bind() {
+    const { element } = this;
+    const form = element.querySelector('form');
+    const input = form.querySelector('input');
+    const submitButton = form.querySelector('button');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      submitButton.disabled = true;
+      const { value } = input;
+      loadRss(value)
+        .then((data) => {
+          input.value = '';
+          const parsedData = parseRss(data);
+          console.log(parsedData);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          submitButton.disabled = false;
+        });
+    });
+  }
+
+  init() {
+    this.render();
+    this.bind();
     console.log('ehu!');
   }
 }
