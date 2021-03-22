@@ -13,7 +13,7 @@ export default class Main {
     this.state = state;
   }
 
-  updateRenderFeed() {
+  renderFeed() {
     const section = document.querySelector('section[name="feed"]');
     const row = section.querySelector('div[name="feed-info"]');
     row.innerHTML = mainFeedHtml;
@@ -23,7 +23,7 @@ export default class Main {
     feedInfo.innerHTML = feedList;
   }
 
-  updateRenderArticles() {
+  renderArticles() {
     const section = document.querySelector('section[name="feed"]');
     const row = section.querySelector('div[name="articles"]');
     row.innerHTML = mainArticleHtml;
@@ -70,8 +70,8 @@ export default class Main {
             const { title, description, items } = parsedData;
             this.state.uploadedFeed.push({ title, description, link: value });
             this.state.uploadedArticles = [...items, ...this.state.uploadedArticles];
-            this.updateRenderFeed();
-            this.updateRenderArticles();
+            this.renderFeed();
+            this.renderArticles();
           })
           .catch((error) => {
             feedback.classList.remove('d-none');
