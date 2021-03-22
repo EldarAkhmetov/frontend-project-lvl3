@@ -4,8 +4,7 @@ import Main from './Main.js';
 
 const initialState = {
   form: {
-    isValid: false,
-    validationErrors: [],
+    message: '',
   },
   uploadedFeed: [],
   uploadedArticles: [],

@@ -47,26 +47,42 @@ export default class Main {
     const form = element.querySelector('form');
     const input = form.querySelector('input');
     const submitButton = form.querySelector('button');
+    const feedback = form.querySelector('div.feedback');
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      feedback.classList.add('d-none');
+      feedback.classList.add('text-danger');
       submitButton.disabled = true;
       const { value } = input;
-      loadRss(value)
-        .then((data) => {
-          input.value = '';
-          const parsedData = parseRss(data);
-          const { title, description, items } = parsedData;
-          this.state.uploadedFeed.push({ title, description });
-          this.state.uploadedArticles = [...items, ...this.state.uploadedArticles];
-          this.updateRenderFeed();
-          this.updateRenderArticles();
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          submitButton.disabled = false;
-        });
+      feedback.innerHTML = '';
+      if (this.state.uploadedFeed.find((feed) => feed.link === value)) {
+        feedback.classList.remove('d-none');
+        feedback.innerHTML = 'Rss already exists';
+        submitButton.disabled = false;
+      } else {
+        loadRss(value)
+          .then((data) => {
+            feedback.classList.remove('d-none');
+            feedback.classList.remove('text-danger');
+            feedback.innerHTML = 'RSS успешно загружен';
+            input.value = '';
+            const parsedData = parseRss(data);
+            const { title, description, items } = parsedData;
+            this.state.uploadedFeed.push({ title, description, link: value });
+            this.state.uploadedArticles = [...items, ...this.state.uploadedArticles];
+            this.updateRenderFeed();
+            this.updateRenderArticles();
+          })
+          .catch((error) => {
+            feedback.classList.remove('d-none');
+            feedback.classList.add('text-danger');
+            feedback.innerHTML = 'Ресурс не содержит валидный RSS';
+            console.log(error.message);
+          })
+          .finally(() => {
+            submitButton.disabled = false;
+          });
+      }
     });
   }
 
