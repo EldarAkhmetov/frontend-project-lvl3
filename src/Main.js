@@ -1,4 +1,6 @@
 // @ts-check
+import i18next from 'i18next';
+import resources from './locales';
 import loadRss from './rss-loader';
 import parseRss from './rss-parser';
 import mainInnerHtml from './templates/main-inner-html';
@@ -57,14 +59,14 @@ export default class Main {
       feedback.innerHTML = '';
       if (this.state.uploadedFeed.find((feed) => feed.link === value)) {
         feedback.classList.remove('d-none');
-        feedback.innerHTML = 'Rss already exists';
+        feedback.innerHTML = i18next.t('errorMessages.alreadyExists');
         submitButton.disabled = false;
       } else {
         loadRss(value)
           .then((data) => {
             feedback.classList.remove('d-none');
             feedback.classList.remove('text-danger');
-            feedback.innerHTML = 'RSS успешно загружен';
+            feedback.innerHTML = i18next.t('successMessages.feedLoaded');
             input.value = '';
             const parsedData = parseRss(data);
             const { title, description, items } = parsedData;
@@ -76,7 +78,7 @@ export default class Main {
           .catch((error) => {
             feedback.classList.remove('d-none');
             feedback.classList.add('text-danger');
-            feedback.innerHTML = 'Ресурс не содержит валидный RSS';
+            feedback.innerHTML = i18next.t('errorMessages.rssRequired');
             console.log(error.message);
           })
           .finally(() => {
@@ -87,8 +89,15 @@ export default class Main {
   }
 
   init() {
-    this.render();
-    this.bind();
-    console.log('ehu!');
+    i18next.init({
+      lng: 'ru',
+      debug: true,
+      resources,
+    })
+      .then(() => {
+        this.render();
+        this.bind();
+        console.log('ehu!');
+      });
   }
 }
