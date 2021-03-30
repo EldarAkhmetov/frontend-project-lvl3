@@ -44,6 +44,36 @@ export default class Main {
     this.element = main;
   }
 
+  initAutoUpdate() {
+    const interval = 5000;
+    const updateArticles = () => {
+      const currentFeedLinks = this.state.uploadedFeed.map((feed) => feed.link);
+      Promise.all(currentFeedLinks.map(loadRss))
+        .then((data) => {
+          const currentArticles = this.state.uploadedArticles;
+          let isFeedChange = false;
+          const parsedData = data.map((feed) => parseRss(feed));
+          parsedData.forEach((feed) => {
+            feed.items.forEach((item) => {
+              const hasArticle = currentArticles.find((article) => article.link === item.link);
+              if (!hasArticle) {
+                this.state.uploadedArticles = [item, ...currentArticles];
+                isFeedChange = true;
+              }
+            });
+          });
+          if (isFeedChange) {
+            this.renderArticles();
+          }
+          setTimeout(updateArticles, interval);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    setTimeout(updateArticles, interval);
+  }
+
   bind() {
     const { element } = this;
     const form = element.querySelector('form');
@@ -61,30 +91,34 @@ export default class Main {
         feedback.classList.remove('d-none');
         feedback.innerHTML = i18next.t('errorMessages.alreadyExists');
         submitButton.disabled = false;
-      } else {
-        loadRss(value)
-          .then((data) => {
-            feedback.classList.remove('d-none');
-            feedback.classList.remove('text-danger');
-            feedback.innerHTML = i18next.t('successMessages.feedLoaded');
-            input.value = '';
-            const parsedData = parseRss(data);
-            const { title, description, items } = parsedData;
-            this.state.uploadedFeed.push({ title, description, link: value });
-            this.state.uploadedArticles = [...items, ...this.state.uploadedArticles];
-            this.renderFeed();
-            this.renderArticles();
-          })
-          .catch((error) => {
-            feedback.classList.remove('d-none');
-            feedback.classList.add('text-danger');
-            feedback.innerHTML = i18next.t('errorMessages.rssRequired');
-            console.log(error.message);
-          })
-          .finally(() => {
-            submitButton.disabled = false;
-          });
+        return;
       }
+
+      loadRss(value)
+        .then((data) => {
+          feedback.classList.remove('d-none');
+          feedback.classList.remove('text-danger');
+          feedback.innerHTML = i18next.t('successMessages.feedLoaded');
+          input.value = '';
+          const parsedData = parseRss(data);
+          const { title, description, items } = parsedData;
+          this.state.uploadedFeed.push({ title, description, link: value });
+          this.state.uploadedArticles = [...items, ...this.state.uploadedArticles];
+          this.renderFeed();
+          this.renderArticles();
+          if (this.state.uploadedFeed.length === 1) {
+            this.initAutoUpdate();
+          }
+        })
+        .catch((error) => {
+          feedback.classList.remove('d-none');
+          feedback.classList.add('text-danger');
+          feedback.innerHTML = i18next.t('errorMessages.rssRequired');
+          console.log(error.message);
+        })
+        .finally(() => {
+          submitButton.disabled = false;
+        });
     });
   }
 
