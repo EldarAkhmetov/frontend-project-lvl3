@@ -51,18 +51,21 @@ export default class Main {
       Promise.all(currentFeedLinks.map(loadRss))
         .then((data) => {
           const currentArticles = this.state.uploadedArticles;
+          let newArticles = [];
           let isFeedChange = false;
           const parsedData = data.map((feed) => parseRss(feed));
           parsedData.forEach((feed) => {
             feed.items.forEach((item) => {
               const hasArticle = currentArticles.find((article) => article.link === item.link);
               if (!hasArticle) {
-                this.state.uploadedArticles = [item, ...currentArticles];
+                newArticles = [...newArticles, item];
                 isFeedChange = true;
               }
             });
+            console.log(this.state.uploadedArticles);
           });
           if (isFeedChange) {
+            this.state.uploadedArticles = [...newArticles, ...currentArticles];
             this.renderArticles();
           }
           setTimeout(updateArticles, interval);
