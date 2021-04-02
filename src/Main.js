@@ -25,6 +25,22 @@ export default class Main {
     feedInfo.innerHTML = feedList;
   }
 
+  renderModal(id) {
+    document.body.classList.add('modal-open');
+    const modal = this.element.querySelector('.modal');
+    modal.classList.add('show');
+    modal.setAttribute('style', 'display: block; padding-right: 17px;');
+    const currentArticle = this.state.uploadedArticles.find((article) => article.id === id);
+
+    const title = modal.querySelector('.modal-title');
+    const description = modal.querySelector('.modal-body');
+    const link = modal.querySelector('a');
+
+    title.textContent = currentArticle.title;
+    description.textContent = currentArticle.description;
+    link.href = currentArticle.link;
+  }
+
   renderArticles() {
     const section = document.querySelector('section[name="feed"]');
     const row = section.querySelector('div[name="articles"]');
@@ -34,6 +50,13 @@ export default class Main {
       .map(createArticleItem)
       .join('');
     articles.innerHTML = articlesList;
+    const viewButtons = articles.querySelectorAll('button');
+    viewButtons.forEach((viewButton) => {
+      viewButton.addEventListener('click', (e) => {
+        const articleId = e.target.parentNode.dataset.id;
+        this.renderModal(articleId);
+      });
+    });
   }
 
   render() {
@@ -82,6 +105,16 @@ export default class Main {
     const input = form.querySelector('input');
     const submitButton = form.querySelector('button');
     const feedback = form.querySelector('div.feedback');
+    const modal = element.querySelector('.modal');
+    const modalClose = modal.querySelectorAll('[data-dismiss="modal"]');
+    modalClose.forEach((modalCloseElement) => {
+      modalCloseElement.addEventListener('click', () => {
+        document.body.classList.remove('modal-open');
+        modal.classList.remove('show');
+        modal.setAttribute('style', 'display: hidden;');
+      });
+    });
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       feedback.classList.add('d-none');

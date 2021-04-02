@@ -1,4 +1,21 @@
 export default `
+  <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <a type="button" href="#" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Читать полностью</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <section class="container-fluid bg-dark p-5">
     <div class="row">
       <div class="col-md-10 col-lg-8 mx-auto text-white">

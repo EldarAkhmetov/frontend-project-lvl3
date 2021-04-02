@@ -1,9 +1,11 @@
 // @ts-check
+import { uniqueId } from 'lodash';
 
 const buildItems = (item) => ({
   title: item.querySelector('title').textContent,
-  description: item.querySelector('title').textContent,
+  description: item.querySelector('description').textContent,
   link: item.querySelector('link').textContent,
+  id: uniqueId(),
 });
 
 export default (rssData) => {
