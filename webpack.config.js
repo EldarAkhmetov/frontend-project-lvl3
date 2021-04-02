@@ -30,7 +30,9 @@ module.exports = {
   devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
+      title: 'RSS-agregator',
       template: 'template.html',
+      filename: 'index.html',
     }),
   ],
 };
