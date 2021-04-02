@@ -13,6 +13,7 @@ export default class Main {
   constructor(element, state) {
     this.element = element;
     this.state = state;
+    this.i18nInstance = i18next.createInstance();
   }
 
   renderFeed() {
@@ -141,7 +142,7 @@ export default class Main {
       feedback.innerHTML = '';
       if (this.state.uploadedFeed.find((feed) => feed.link === value)) {
         feedback.classList.remove('d-none');
-        feedback.innerHTML = i18next.t('errorMessages.alreadyExists');
+        feedback.innerHTML = this.i18nInstance.t('errorMessages.alreadyExists');
         submitButton.disabled = false;
         return;
       }
@@ -150,7 +151,7 @@ export default class Main {
         .then((data) => {
           feedback.classList.remove('d-none');
           feedback.classList.remove('text-danger');
-          feedback.innerHTML = i18next.t('successMessages.feedLoaded');
+          feedback.innerHTML = this.i18nInstance.t('successMessages.feedLoaded');
           input.value = '';
           const parsedData = parseRss(data);
           const { title, description, items } = parsedData;
@@ -165,7 +166,7 @@ export default class Main {
         .catch((error) => {
           feedback.classList.remove('d-none');
           feedback.classList.add('text-danger');
-          feedback.innerHTML = i18next.t('errorMessages.rssRequired');
+          feedback.innerHTML = this.i18nInstance.t('errorMessages.rssRequired');
           console.log(error.message);
         })
         .finally(() => {
@@ -175,7 +176,7 @@ export default class Main {
   }
 
   init() {
-    i18next.init({
+    this.i18nInstance.init({
       lng: 'ru',
       debug: true,
       resources,
