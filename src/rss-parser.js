@@ -6,6 +6,7 @@ const buildItems = (item) => ({
   description: item.querySelector('description').textContent,
   link: item.querySelector('link').textContent,
   id: uniqueId(),
+  isRead: false,
 });
 
 export default (rssData) => {

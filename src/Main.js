@@ -25,20 +25,19 @@ export default class Main {
     feedInfo.innerHTML = feedList;
   }
 
-  renderModal(id) {
+  renderModal(article) {
     document.body.classList.add('modal-open');
     const modal = this.element.querySelector('.modal');
     modal.classList.add('show');
     modal.setAttribute('style', 'display: block; padding-right: 17px;');
-    const currentArticle = this.state.uploadedArticles.find((article) => article.id === id);
 
     const title = modal.querySelector('.modal-title');
     const description = modal.querySelector('.modal-body');
     const link = modal.querySelector('a');
 
-    title.textContent = currentArticle.title;
-    description.textContent = currentArticle.description;
-    link.href = currentArticle.link;
+    title.textContent = article.title;
+    description.textContent = article.description;
+    link.href = article.link;
   }
 
   renderArticles() {
@@ -51,10 +50,28 @@ export default class Main {
       .join('');
     articles.innerHTML = articlesList;
     const viewButtons = articles.querySelectorAll('button');
+    const articleLinks = articles.querySelectorAll('a');
+    articleLinks.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const articleId = e.target.parentNode.dataset.id;
+        const currentArticle = this.state.uploadedArticles
+          .find((article) => article.id === articleId);
+        if (!currentArticle.isRead) {
+          currentArticle.isRead = true;
+          this.renderArticles();
+        }
+      });
+    });
     viewButtons.forEach((viewButton) => {
       viewButton.addEventListener('click', (e) => {
         const articleId = e.target.parentNode.dataset.id;
-        this.renderModal(articleId);
+        const currentArticle = this.state.uploadedArticles
+          .find((article) => article.id === articleId);
+        if (!currentArticle.isRead) {
+          currentArticle.isRead = true;
+          this.renderArticles();
+        }
+        this.renderModal(currentArticle);
       });
     });
   }
