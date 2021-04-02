@@ -62,7 +62,6 @@ export default class Main {
                 isFeedChange = true;
               }
             });
-            console.log(this.state.uploadedArticles);
           });
           if (isFeedChange) {
             this.state.uploadedArticles = [...newArticles, ...currentArticles];
@@ -134,7 +133,6 @@ export default class Main {
       .then(() => {
         this.render();
         this.bind();
-        console.log('ehu!');
       });
   }
 }
