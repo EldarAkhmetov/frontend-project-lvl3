@@ -39,8 +39,13 @@ test('add rss feed', async () => {
   fireEvent.input(screen.getByPlaceholderText('ссылка RSS'), { target: { value: requestURL } });
   fireEvent.click(screen.getByRole('button', { name: 'add' }));
 
-  const success = await screen.findByText('RSS успешно загружен');
-  expect(success).toBeInTheDocument();
+  const uploaded = await screen.findByText('RSS успешно загружен');
+  expect(uploaded).toBeInTheDocument();
 
   expect(document.body.innerHTML).toMatchSnapshot();
+
+  fireEvent.input(screen.getByPlaceholderText('ссылка RSS'), { target: { value: requestURL } });
+  fireEvent.click(screen.getByRole('button', { name: 'add' }));
+  const exists = await screen.findByText('RSS уже существует');
+  expect(exists).toBeInTheDocument();
 });

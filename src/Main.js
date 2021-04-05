@@ -134,11 +134,12 @@ export default class Main {
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      console.log('submit button click');
       feedback.classList.add('d-none');
       feedback.classList.add('text-danger');
       submitButton.disabled = true;
       const { value } = input;
-      feedback.textContent = message;
+      feedback.textContent = '';
       if (this.state.uploadedFeed.find((feed) => feed.link === value)) {
         message = i18next.t('errorMessages.alreadyExists');
         feedback.classList.remove('d-none');
@@ -149,6 +150,7 @@ export default class Main {
 
       loadRss(value)
         .then((data) => {
+          submitButton.disabled = false;
           message = i18next.t('successMessages.feedLoaded');
           feedback.classList.remove('d-none');
           feedback.classList.remove('text-danger');
