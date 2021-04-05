@@ -137,6 +137,7 @@ export default class Main {
       console.log('submit button click');
       feedback.classList.add('d-none');
       feedback.classList.add('text-danger');
+      input.readOnly = true;
       submitButton.disabled = true;
       const { value } = input;
       feedback.textContent = '';
@@ -167,6 +168,7 @@ export default class Main {
       loadRss(value)
         .then((data) => {
           submitButton.disabled = false;
+          input.readOnly = false;
           message = i18next.t('successMessages.feedLoaded');
           feedback.classList.remove('d-none');
           feedback.classList.remove('text-danger');
@@ -184,6 +186,7 @@ export default class Main {
         })
         .catch((error) => {
           submitButton.disabled = false;
+          input.readOnly = false;
           message = i18next.t('errorMessages.rssRequired');
           if (error.message !== "Cannot read property 'textContent' of null") {
             console.log('network.error message===', error.message);
