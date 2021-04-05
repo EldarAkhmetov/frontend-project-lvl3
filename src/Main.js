@@ -140,6 +140,22 @@ export default class Main {
       submitButton.disabled = true;
       const { value } = input;
       feedback.textContent = '';
+      const isValidHttpUrl = (string) => {
+        let url;
+        try {
+          url = new URL(string);
+        } catch (_) {
+          return false;
+        }
+        return url.protocol === 'http:' || url.protocol === 'https:';
+      };
+      if (!isValidHttpUrl(value)) {
+        message = i18next.t('errorMessages.invalidUrl');
+        feedback.classList.remove('d-none');
+        feedback.textContent = message;
+        submitButton.disabled = false;
+        return;
+      }
       if (this.state.uploadedFeed.find((feed) => feed.link === value)) {
         message = i18next.t('errorMessages.alreadyExists');
         feedback.classList.remove('d-none');
