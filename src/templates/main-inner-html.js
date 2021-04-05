@@ -37,6 +37,7 @@ export default `
             </div>
           </div>
           <div class="feedback text-success text-danger d-none">
+            Rss успешно загружен
           </div>
         </form>
         <p class="text-muted my-1">
