@@ -183,6 +183,7 @@ export default class Main {
           }
         })
         .catch((error) => {
+          submitButton.disabled = false;
           message = i18next.t('errorMessages.rssRequired');
           if (error.message === 'Network Error') {
             message = i18next.t('errorMessages.networkError');
@@ -190,9 +191,6 @@ export default class Main {
           feedback.classList.remove('d-none');
           feedback.classList.add('text-danger');
           feedback.textContent = message;
-        })
-        .finally(() => {
-          submitButton.disabled = false;
         });
     });
   }
