@@ -1,6 +1,4 @@
 // @ts-check
-import i18next from 'i18next';
-import resources from './locales';
 import loadRss from './rss-loader';
 import parseRss from './rss-parser';
 import mainInnerHtml from './templates/main-inner-html';
@@ -10,9 +8,10 @@ import mainArticleHtml from './templates/main-article-html';
 import createArticleItem from './templates/article-item';
 
 export default class Main {
-  constructor(element, state) {
+  constructor(element, state, instance) {
     this.element = element;
     this.state = state;
+    this.i18next = instance;
   }
 
   renderFeed() {
@@ -116,7 +115,7 @@ export default class Main {
     setTimeout(updateArticles, interval);
   }
 
-  bind(i18nInstance) {
+  bind() {
     const { element } = this;
     const form = element.querySelector('form');
     const input = form.querySelector('input');
@@ -141,7 +140,7 @@ export default class Main {
       feedback.innerHTML = '';
       if (this.state.uploadedFeed.find((feed) => feed.link === value)) {
         feedback.classList.remove('d-none');
-        feedback.innerHTML = i18nInstance.t('errorMessages.alreadyExists');
+        feedback.innerHTML = this.i18next.t('errorMessages.alreadyExists');
         submitButton.disabled = false;
         return;
       }
@@ -150,7 +149,7 @@ export default class Main {
         .then((data) => {
           feedback.classList.remove('d-none');
           feedback.classList.remove('text-danger');
-          feedback.innerHTML = i18nInstance.t('successMessages.feedLoaded');
+          feedback.innerHTML = this.i18next.t('successMessages.feedLoaded');
           input.value = '';
           const parsedData = parseRss(data);
           const { title, description, items } = parsedData;
@@ -165,7 +164,7 @@ export default class Main {
         .catch((error) => {
           feedback.classList.remove('d-none');
           feedback.classList.add('text-danger');
-          feedback.innerHTML = i18nInstance.t('errorMessages.rssRequired');
+          feedback.innerHTML = this.i18next.t('errorMessages.rssRequired');
           console.log(error.message);
         })
         .finally(() => {
@@ -175,15 +174,7 @@ export default class Main {
   }
 
   init() {
-    const i18nInstance = i18next.createInstance();
-    i18nInstance.init({
-      lng: 'ru',
-      debug: true,
-      resources,
-    })
-      .then(() => {
-        this.render();
-        this.bind(i18nInstance);
-      });
+    this.render();
+    this.bind();
   }
 }
