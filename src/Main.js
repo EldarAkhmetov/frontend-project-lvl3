@@ -184,10 +184,12 @@ export default class Main {
         })
         .catch((error) => {
           message = i18next.t('errorMessages.rssRequired');
+          if (error.message === 'Network Error') {
+            message = i18next.t('errorMessages.networkError');
+          }
           feedback.classList.remove('d-none');
           feedback.classList.add('text-danger');
           feedback.textContent = message;
-          console.log(error.message);
         })
         .finally(() => {
           submitButton.disabled = false;
