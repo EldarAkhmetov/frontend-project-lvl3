@@ -120,7 +120,7 @@ export default class Main {
     const form = element.querySelector('form');
     const input = form.querySelector('input');
     const submitButton = form.querySelector('button');
-    const feedback = form.querySelector('div.feedback');
+    const feedback = element.querySelector('div.feedback');
     const modal = element.querySelector('.modal');
     const modalClose = modal.querySelectorAll('[data-dismiss="modal"]');
     let { message } = this.state.form;
