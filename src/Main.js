@@ -185,8 +185,8 @@ export default class Main {
         .catch((error) => {
           submitButton.disabled = false;
           message = i18next.t('errorMessages.rssRequired');
-          if (error.message === 'Network Error') {
-            console.log('error message===', error.message);
+          if (error.message !== "Cannot read property 'textContent' of null") {
+            console.log('network.error message===', error.message);
             message = i18next.t('errorMessages.networkError');
           }
           console.log('error message===', error.message);
