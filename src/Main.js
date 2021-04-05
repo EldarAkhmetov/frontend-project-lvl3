@@ -116,7 +116,7 @@ export default class Main {
   }
 
   bind() {
-    const { element } = this;
+    const { element, i18next } = this;
     const form = element.querySelector('form');
     const input = form.querySelector('input');
     const submitButton = form.querySelector('button');
@@ -138,9 +138,9 @@ export default class Main {
       feedback.classList.add('text-danger');
       submitButton.disabled = true;
       const { value } = input;
-      feedback.innerHTML = '';
+      feedback.textContent = message;
       if (this.state.uploadedFeed.find((feed) => feed.link === value)) {
-        message = this.i18next.t('errorMessages.alreadyExists');
+        message = i18next.t('errorMessages.alreadyExists');
         feedback.classList.remove('d-none');
         feedback.textContent = message;
         submitButton.disabled = false;
@@ -149,7 +149,7 @@ export default class Main {
 
       loadRss(value)
         .then((data) => {
-          message = this.i18next.t('successMessages.feedLoaded');
+          message = i18next.t('successMessages.feedLoaded');
           feedback.classList.remove('d-none');
           feedback.classList.remove('text-danger');
           feedback.textContent = message;
@@ -165,7 +165,7 @@ export default class Main {
           }
         })
         .catch((error) => {
-          message = this.i18next.t('errorMessages.rssRequired');
+          message = i18next.t('errorMessages.rssRequired');
           feedback.classList.remove('d-none');
           feedback.classList.add('text-danger');
           feedback.textContent = message;

@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add rss feed 1`] = `
+"<main class=\\"flex-grow-1\\">
+  <div class=\\"modal fade\\" id=\\"modal\\" tabindex=\\"-1\\" aria-labelledby=\\"modal\\" aria-hidden=\\"true\\">
+    <div class=\\"modal-dialog\\" role=\\"document\\">
+      <div class=\\"modal-content\\">
+        <div class=\\"modal-header\\">
+          <h5 class=\\"modal-title\\">Modal title</h5>
+          <button type=\\"button\\" class=\\"btn-close\\" data-dismiss=\\"modal\\" aria-label=\\"Close\\"></button>
+        </div>
+        <div class=\\"modal-body\\">
+          ...
+        </div>
+        <div class=\\"modal-footer\\">
+          <a type=\\"button\\" href=\\"#\\" class=\\"btn btn-primary\\" target=\\"_blank\\" rel=\\"noopener noreferrer\\">Читать полностью</a>
+          <button type=\\"button\\" class=\\"btn btn-secondary\\" data-dismiss=\\"modal\\">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class=\\"container-fluid bg-dark p-5\\">
+    <div class=\\"row\\">
+      <div class=\\"col-md-10 col-lg-8 mx-auto text-white\\">
+        <h1 class=\\"display-2\\">
+          RSS агрегатор
+        </h1>
+        <p class=\\"lead\\">
+          Начните читать RSS сегодня! Это легко, это красиво.
+        </p>
+        <form action=\\"\\" class=\\"rss-form\\">
+          <div class=\\"form-row d-flex\\">
+            <div class=\\"col px-1\\">
+              <input autofocus=\\"\\" required=\\"\\" name=\\"url\\" type=\\"url\\" aria-label=\\"url\\" class=\\"form-control form-control-lg w-100\\" placeholder=\\"ссылка RSS\\">
+            </div>
+            <div class=\\"col-auto px-1\\">
+              <button type=\\"submit\\" aria-label=\\"add\\" class=\\"btn btn-lg btn-primary px-sm-5\\" name=\\"add\\" disabled=\\"\\">
+                Add
+              </button>
+            </div>
+          </div>
+        </form>
+        <p class=\\"text-muted my-1\\">
+          Пример: https://ru.hexlet.io/lessons.rss
+        </p>
+        <div class=\\"feedback text-success\\">RSS успешно загружен</div>
+      </div>          
+    </div>
+  </section>
+  <section class=\\"container-fluid p-5\\" name=\\"feed\\">
+    <div class=\\"row\\" name=\\"feed-info\\">
+  <div class=\\"col-md-10 col-lg-8 mx-auto feeds\\">
+    <h2>Фиды</h2>
+    <ul class=\\"list-group mb-5\\" name=\\"feed-list\\">
+  <li class=\\"list-group-item\\">
+    <h3>Test RSS 1</h3>
+    <p>Test desc 1</p>
+  </li>
+</ul>
+  </div>
+</div>
+    <div class=\\"row\\" name=\\"articles\\">
+  <div class=\\"col-md-10 col-lg-8 mx-auto posts\\">
+    <h2>Посты</h2>
+    <ul class=\\"list-group\\" name=\\"articles-list\\">
+  <li class=\\"list-group-item d-flex justify-content-between align-items-start\\" data-id=\\"1\\">
+    <a href=\\"https://google.com\\" class=\\"fw-bold\\" target=\\"_blank\\" rel=\\"noopener noreferrer\\">Woohoo</a>
+    <button type=\\"button\\" class=\\"btn btn-primary btn-sm\\">Просмотр</button>
+  </li>
+
+  <li class=\\"list-group-item d-flex justify-content-between align-items-start\\" data-id=\\"2\\">
+    <a href=\\"https://example.com\\" class=\\"fw-bold\\" target=\\"_blank\\" rel=\\"noopener noreferrer\\">Hey</a>
+    <button type=\\"button\\" class=\\"btn btn-primary btn-sm\\">Просмотр</button>
+  </li>
+
+  <li class=\\"list-group-item d-flex justify-content-between align-items-start\\" data-id=\\"3\\">
+    <a href=\\"https://yahoo.com\\" class=\\"fw-bold\\" target=\\"_blank\\" rel=\\"noopener noreferrer\\">LOL</a>
+    <button type=\\"button\\" class=\\"btn btn-primary btn-sm\\">Просмотр</button>
+  </li>
+</ul>
+  </div>
+</div>
+  </section>
+</main>"
+`;
+
+exports[`init 1`] = `
+"<main class=\\"flex-grow-1\\">
+  <div class=\\"modal fade\\" id=\\"modal\\" tabindex=\\"-1\\" aria-labelledby=\\"modal\\" aria-hidden=\\"true\\">
+    <div class=\\"modal-dialog\\" role=\\"document\\">
+      <div class=\\"modal-content\\">
+        <div class=\\"modal-header\\">
+          <h5 class=\\"modal-title\\">Modal title</h5>
+          <button type=\\"button\\" class=\\"btn-close\\" data-dismiss=\\"modal\\" aria-label=\\"Close\\"></button>
+        </div>
+        <div class=\\"modal-body\\">
+          ...
+        </div>
+        <div class=\\"modal-footer\\">
+          <a type=\\"button\\" href=\\"#\\" class=\\"btn btn-primary\\" target=\\"_blank\\" rel=\\"noopener noreferrer\\">Читать полностью</a>
+          <button type=\\"button\\" class=\\"btn btn-secondary\\" data-dismiss=\\"modal\\">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class=\\"container-fluid bg-dark p-5\\">
+    <div class=\\"row\\">
+      <div class=\\"col-md-10 col-lg-8 mx-auto text-white\\">
+        <h1 class=\\"display-2\\">
+          RSS агрегатор
+        </h1>
+        <p class=\\"lead\\">
+          Начните читать RSS сегодня! Это легко, это красиво.
+        </p>
+        <form action=\\"\\" class=\\"rss-form\\">
+          <div class=\\"form-row d-flex\\">
+            <div class=\\"col px-1\\">
+              <input autofocus=\\"\\" required=\\"\\" name=\\"url\\" type=\\"url\\" aria-label=\\"url\\" class=\\"form-control form-control-lg w-100\\" placeholder=\\"ссылка RSS\\">
+            </div>
+            <div class=\\"col-auto px-1\\">
+              <button type=\\"submit\\" aria-label=\\"add\\" class=\\"btn btn-lg btn-primary px-sm-5\\" name=\\"add\\">
+                Add
+              </button>
+            </div>
+          </div>
+        </form>
+        <p class=\\"text-muted my-1\\">
+          Пример: https://ru.hexlet.io/lessons.rss
+        </p>
+        <div class=\\"feedback text-success text-danger d-none\\">
+        </div>
+      </div>          
+    </div>
+  </section>
+  <section class=\\"container-fluid p-5\\" name=\\"feed\\">
+    <div class=\\"row\\" name=\\"feed-info\\">
+    </div>
+    <div class=\\"row\\" name=\\"articles\\">
+    </div>
+  </section>
+</main>"
+`;
