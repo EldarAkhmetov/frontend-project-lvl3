@@ -31,7 +31,7 @@ export default `
               <input autofocus required name="url" type="url" aria-label="url" class="form-control form-control-lg w-100" placeholder="ссылка RSS">
             </div>
             <div class="col-auto px-1">
-              <button type="submit" aria-label="add" class="btn btn-lg btn-primary px-sm-5">
+              <button type="submit" aria-label="add" class="btn btn-lg btn-primary px-sm-5" name="add">
                 Add
               </button>
             </div>

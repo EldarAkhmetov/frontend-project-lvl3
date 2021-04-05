@@ -123,6 +123,7 @@ export default class Main {
     const feedback = form.querySelector('div.feedback');
     const modal = element.querySelector('.modal');
     const modalClose = modal.querySelectorAll('[data-dismiss="modal"]');
+    let { message } = this.state.form;
     modalClose.forEach((modalCloseElement) => {
       modalCloseElement.addEventListener('click', () => {
         document.body.classList.remove('modal-open');
@@ -139,17 +140,19 @@ export default class Main {
       const { value } = input;
       feedback.innerHTML = '';
       if (this.state.uploadedFeed.find((feed) => feed.link === value)) {
+        message = this.i18next.t('errorMessages.alreadyExists');
         feedback.classList.remove('d-none');
-        feedback.textContent = this.i18next.t('errorMessages.alreadyExists');
+        feedback.textContent = message;
         submitButton.disabled = false;
         return;
       }
 
       loadRss(value)
         .then((data) => {
+          message = this.i18next.t('successMessages.feedLoaded');
           feedback.classList.remove('d-none');
           feedback.classList.remove('text-danger');
-          feedback.textContent = this.i18next.t('successMessages.feedLoaded');
+          feedback.textContent = message;
           input.value = '';
           const parsedData = parseRss(data);
           const { title, description, items } = parsedData;
@@ -162,9 +165,10 @@ export default class Main {
           }
         })
         .catch((error) => {
+          message = this.i18next.t('errorMessages.rssRequired');
           feedback.classList.remove('d-none');
           feedback.classList.add('text-danger');
-          feedback.textContent = this.i18next.t('errorMessages.rssRequired');
+          feedback.textContent = message;
           console.log(error.message);
         })
         .finally(() => {
