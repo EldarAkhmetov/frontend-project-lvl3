@@ -40,6 +40,9 @@ export default `
         <p class="text-muted my-1">
           Пример: https://ru.hexlet.io/lessons.rss
         </p>
+        <div class="feedback text-success">
+          RSS успешно загружен 
+        </div>
         <div class="feedback text-success text-danger d-none">
         </div>
       </div>          
