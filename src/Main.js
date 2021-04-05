@@ -184,7 +184,7 @@ export default class Main {
         })
         .catch((error) => {
           submitButton.disabled = false;
-          message = i18next.t('errorMessages.rssRequired');
+          message = i18next.t('errorMessages.networkError');
           if (error.message === 'Network Error') {
             message = i18next.t('errorMessages.networkError');
           }
