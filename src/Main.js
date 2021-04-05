@@ -140,7 +140,7 @@ export default class Main {
       feedback.innerHTML = '';
       if (this.state.uploadedFeed.find((feed) => feed.link === value)) {
         feedback.classList.remove('d-none');
-        feedback.innerHTML = this.i18next.t('errorMessages.alreadyExists');
+        feedback.textContent = this.i18next.t('errorMessages.alreadyExists');
         submitButton.disabled = false;
         return;
       }
@@ -149,7 +149,7 @@ export default class Main {
         .then((data) => {
           feedback.classList.remove('d-none');
           feedback.classList.remove('text-danger');
-          feedback.innerHTML = this.i18next.t('successMessages.feedLoaded');
+          feedback.textContent = this.i18next.t('successMessages.feedLoaded');
           input.value = '';
           const parsedData = parseRss(data);
           const { title, description, items } = parsedData;
@@ -164,7 +164,7 @@ export default class Main {
         .catch((error) => {
           feedback.classList.remove('d-none');
           feedback.classList.add('text-danger');
-          feedback.innerHTML = this.i18next.t('errorMessages.rssRequired');
+          feedback.textContent = this.i18next.t('errorMessages.rssRequired');
           console.log(error.message);
         })
         .finally(() => {
