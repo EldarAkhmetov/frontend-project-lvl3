@@ -108,8 +108,7 @@ export default class Main {
           }
           setTimeout(updateArticles, interval);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
         });
     };
     setTimeout(updateArticles, interval);
@@ -134,7 +133,6 @@ export default class Main {
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      console.log('submit button click');
       feedback.classList.add('d-none');
       feedback.classList.add('text-danger');
       input.readOnly = true;
@@ -189,10 +187,8 @@ export default class Main {
           input.readOnly = false;
           message = i18next.t('errorMessages.rssRequired');
           if (error.message !== "Cannot read property 'textContent' of null") {
-            console.log('network.error message===', error.message);
             message = i18next.t('errorMessages.networkError');
           }
-          console.log('error message===', error.message);
           feedback.classList.remove('d-none');
           feedback.classList.add('text-danger');
           feedback.textContent = message;
