@@ -2,6 +2,7 @@ import onChange from 'on-change';
 import * as yup from 'yup';
 import loadRss from './rss-loader';
 import parseRss from './rss-parser';
+import initAutoUpdate from './feed-updater';
 import render, {
   renderSubmit,
   renderFeedback,
@@ -45,40 +46,12 @@ export default (i18n) => {
         renderFeed(value);
         break;
       case 'articles':
-        renderArticles(value);
+        renderArticles(value, element);
         break;
       default:
         throw new Error('No such property');
     }
   });
-
-  const initAutoUpdate = (state) => {
-    const interval = 5000;
-    const updateArticles = () => {
-      const currentFeedLinks = state.feeds.map((feed) => feed.link);
-      Promise.all(currentFeedLinks.map(loadRss))
-        .then((data) => {
-          const currentArticles = state.articles;
-          const newArticles = [];
-          const parsedData = data.map((feed) => parseRss(feed));
-          parsedData.forEach((feed) => {
-            feed.items.forEach((item) => {
-              const hasArticle = currentArticles.some((article) => article.link === item.link);
-              if (!hasArticle) {
-                newArticles.push(item);
-              }
-            });
-          });
-          if (newArticles.length > 0) {
-            watchedState.articles = [...newArticles, ...currentArticles];
-          }
-          setTimeout(updateArticles, interval);
-        })
-        .catch(() => {
-        });
-    };
-    setTimeout(updateArticles, interval);
-  };
 
   element.form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -102,7 +75,6 @@ export default (i18n) => {
         const parsedData = parseRss(data);
         watchedState.form.state = 'filling';
         element.input.value = '';
-        console.log(parsedData);
         feedback.classList.remove('text-danger');
         watchedState.form.message = i18n.t('successMessages.feedLoaded');
         const { title, description, items } = parsedData;

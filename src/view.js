@@ -28,7 +28,6 @@ export const renderSubmit = (formState, element) => {
 };
 
 export const renderFeed = (feeds) => {
-  console.log(feeds);
   const section = document.querySelector('section[name="feed"]');
   const row = section.querySelector('div[name="feed-info"]');
   row.innerHTML = mainFeedHtml;
@@ -38,7 +37,29 @@ export const renderFeed = (feeds) => {
   feedInfo.innerHTML = feedList;
 };
 
-export const renderArticles = (articleItems) => {
+const renderModal = (article, element) => {
+  const { modal, modalCloseButtons } = element;
+  document.body.classList.add('modal-open');
+  modal.classList.add('show');
+  modal.setAttribute('style', 'display: block; padding-right: 17px;');
+
+  const title = modal.querySelector('.modal-title');
+  const description = modal.querySelector('.modal-body');
+  const link = modal.querySelector('a');
+
+  title.textContent = article.title;
+  description.textContent = article.description;
+  link.href = article.link;
+  modalCloseButtons.forEach((modalCloseElement) => {
+    modalCloseElement.addEventListener('click', () => {
+      document.body.classList.remove('modal-open');
+      modal.classList.remove('show');
+      modal.setAttribute('style', 'display: hidden;');
+    });
+  });
+};
+
+export const renderArticles = (articleItems, element) => {
   const section = document.querySelector('section[name="feed"]');
   const row = section.querySelector('div[name="articles"]');
   row.innerHTML = mainArticleHtml;
@@ -56,6 +77,7 @@ export const renderArticles = (articleItems) => {
         .find((article) => article.id === articleId);
       if (!currentArticle.isRead) {
         currentArticle.isRead = true;
+        renderArticles(articleItems, element);
       }
     });
   });
@@ -66,8 +88,9 @@ export const renderArticles = (articleItems) => {
         .find((article) => article.id === articleId);
       if (!currentArticle.isRead) {
         currentArticle.isRead = true;
+        renderArticles(articleItems, element);
       }
-      //renderModal(currentArticle);
+      renderModal(currentArticle, element);
     });
   });
 };
