@@ -1,4 +1,4 @@
 export default (link) => {
-  const allOriginLink = 'https://hexlet-allorigins.herokuapp.com/';
+  const allOriginLink = 'https://allorigins.hexlet.app/';
   return `${allOriginLink}get?url=${encodeURIComponent(link)}&disableCache=true`;
 };
